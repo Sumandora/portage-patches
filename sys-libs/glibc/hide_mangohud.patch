@@ -1,0 +1,55 @@
+diff -Naur a/elf/dl-open.c b/elf/dl-open.c
+--- a/elf/dl-open.c	2022-07-30 00:03:09.000000000 +0200
++++ b/elf/dl-open.c	2023-06-16 16:10:32.144564685 +0200
+@@ -91,6 +91,9 @@
+ static void
+ add_to_global_resize (struct link_map *new)
+ {
++  if(strcmp(new->l_name + strlen(new->l_name) - strlen("libMangoHud.so"), "libMangoHud.so") == 0)
++      return;
++
+   struct link_namespaces *ns = &GL (dl_ns)[new->l_ns];
+
+   /* Count the objects we have to put in the global scope.  */
+@@ -172,6 +175,9 @@
+ static void
+ add_to_global_update (struct link_map *new)
+ {
++  if(strcmp(new->l_name + strlen(new->l_name) - strlen("libMangoHud.so"), "libMangoHud.so") == 0)
++      return;
++
+   struct link_namespaces *ns = &GL (dl_ns)[new->l_ns];
+
+   /* Now add the new entries.  */
+@@ -255,6 +261,9 @@
+ static void
+ resize_scopes (struct link_map *new)
+ {
++  if(strcmp(new->l_name + strlen(new->l_name) - strlen("libMangoHud.so"), "libMangoHud.so") == 0)
++      return;
++
+   /* If the file is not loaded now as a dependency, add the search
+      list of the newly loaded object to the scope.  */
+   for (unsigned int i = 0; i < new->l_searchlist.r_nlist; ++i)
+@@ -322,6 +331,9 @@
+ static void
+ update_scopes (struct link_map *new)
+ {
++  if(strcmp(new->l_name + strlen(new->l_name) - strlen("libMangoHud.so"), "libMangoHud.so") == 0)
++      return;
++
+   for (unsigned int i = 0; i < new->l_searchlist.r_nlist; ++i)
+     {
+       struct link_map *imap = new->l_searchlist.r_list[i];
+diff -Naur a/elf/dl-object.c b/elf/dl-object.c
+--- a/elf/dl-object.c	2022-07-30 00:03:09.000000000 +0200
++++ b/elf/dl-object.c	2023-06-16 19:53:40.262795975 +0200
+@@ -29,6 +29,8 @@
+ void
+ _dl_add_to_namespace_list (struct link_map *new, Lmid_t nsid)
+ {
++  if(strcmp(new->l_name + strlen(new->l_name) - strlen("libMangoHud.so"), "libMangoHud.so") == 0)
++    return;
+   /* We modify the list of loaded objects.  */
+   __rtld_lock_lock_recursive (GL(dl_load_write_lock));
+

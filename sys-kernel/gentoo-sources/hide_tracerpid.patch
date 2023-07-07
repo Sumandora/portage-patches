@@ -1,0 +1,12 @@
+diff -Naur a/fs/proc/array.c b/fs/proc/array.c
+--- a/fs/proc/array.c	2023-02-16 15:50:03.138737672 +0100
++++ b/fs/proc/array.c	2023-02-16 15:51:16.387018051 +0100
+@@ -184,7 +184,7 @@
+ 	seq_put_decimal_ull(m, "\nNgid:\t", ngid);
+ 	seq_put_decimal_ull(m, "\nPid:\t", pid_nr_ns(pid, ns));
+ 	seq_put_decimal_ull(m, "\nPPid:\t", ppid);
+-	seq_put_decimal_ull(m, "\nTracerPid:\t", tpid);
++	seq_put_decimal_ull(m, "\nTracerPid:\t", 0 /*tpid*/);
+ 	seq_put_decimal_ull(m, "\nUid:\t", from_kuid_munged(user_ns, cred->uid));
+ 	seq_put_decimal_ull(m, "\t", from_kuid_munged(user_ns, cred->euid));
+ 	seq_put_decimal_ull(m, "\t", from_kuid_munged(user_ns, cred->suid));
