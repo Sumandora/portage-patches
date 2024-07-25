@@ -1,12 +1,12 @@
 diff -Naur a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
---- a/fs/proc/task_mmu.c	2023-05-14 21:33:19.327605120 +0200
-+++ b/fs/proc/task_mmu.c	2023-05-14 21:31:55.541875757 +0200
-@@ -285,6 +285,8 @@
+--- a/fs/proc/task_mmu.c	2024-07-15 00:43:32.000000000 +0200
++++ b/fs/proc/task_mmu.c	2024-07-25 21:32:24.369570010 +0200
+@@ -273,6 +273,8 @@
  	const char *name = NULL;
  
  	if (file) {
 +		if(strstr(file->f_path.dentry->d_iname, "libMangoHud.so"))
 +			return;
- 		struct inode *inode = file_inode(vma->vm_file);
+ 		const struct inode *inode = file_user_inode(vma->vm_file);
+ 
  		dev = inode->i_sb->s_dev;
- 		ino = inode->i_ino;
